@@ -198,10 +198,10 @@ def list_to_textnodes(list_of_blocks):
             return_list.append(BlockNode(txt_list,block.block_type))
     return return_list
 
-def block_list_to_html(list_of_blocks):
+def block_list_to_html(block_list):    
     return_list = []
     # First Block is a DIV
-    for block in list_of_blocks:
+    for block in block_list:
         if isinstance(block,TextNode):
             print(f"TextNode : {block}")
             return_list = return_list + [text_node_to_html_node(block)]
@@ -387,8 +387,23 @@ def markdown_to_block(markdown):
                 block_ls = create_block(block_ls,line_ls,current_block)                  
     # print(block_ls)        
     return block_ls
-        
-        
+
+def get_title_from_blocks(list_block):
+    title = ""
+    for block in list_block:
+        if block.block_type == "h1":
+            if isinstance(block.textnodes,list):
+                for str in block.textnodes:
+                    title += str
+            elif isinstance(block.textnodes,str):
+                title = block.textnodes
+    
+    if title != "":
+        return title
+    else:
+        raise Exception("No valid title found in markdown file.")
+
+
    
 
 

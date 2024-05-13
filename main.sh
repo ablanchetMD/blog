@@ -1,1 +1,2 @@
-python src/main.py
+python src/setup.py
+python server.py --dir public
